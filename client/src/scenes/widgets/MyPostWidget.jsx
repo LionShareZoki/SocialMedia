@@ -87,26 +87,50 @@ const MyPostWidget = ({ picturePath }) => {
             onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
           >
             {({ getRootProps, getInputProps }) => (
-              <Box
-                {...getRootProps()}
-                border={`2px dashed ${palette.primary.main}`}
-                p="1rem"
-                sx={{ "&:hover": { cursor: "pointer" } }}
-              >
-                <input {...getInputProps()} />
-                {!values.picture ? (
-                  <p>Add Picture Here</p>
-                ) : (
-                  <FlexBetween>
-                    <Typography>{values.picture.name}</Typography>
-                    <EditOutlined />
-                  </FlexBetween>
+              <FlexBetween>
+                <Box
+                  {...getRootProps()}
+                  border={`2px dashed ${palette.primary.main}`}
+                  p="1rem"
+                  width="100%"
+                  sx={{ "&:hover": { cursor: "pointer" } }}
+                >
+                  <input {...getInputProps()} />
+                  {!image ? (
+                    <p>Add Image Here</p>
+                  ) : (
+                    <FlexBetween>
+                      <Typography>{image.name}</Typography>
+                      <EditOutlined />
+                    </FlexBetween>
+                  )}
+                </Box>
+                {image && (
+                  <IconButton
+                    onClick={() => setImage(null)}
+                    sx={{ width: "15%" }}
+                  >
+                    <DeleteOutlined />
+                  </IconButton>
                 )}
-              </Box>
+              </FlexBetween>
             )}
           </Dropzone>
         </Box>
       )}
+      <Divider sx={{ margin: "1.2rem 0" }} />
+
+      <FlexBetween>
+        <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
+          <ImageOutlined sx={{ color: mediumMain }} />
+          <Typography
+            color={mediumMain}
+            sx={{ "&:hover": { cursor: "pointer", color: "medium" } }}
+          >
+            Image
+          </Typography>
+        </FlexBetween>
+      </FlexBetween>
     </WidgetWrapper>
   );
 };
